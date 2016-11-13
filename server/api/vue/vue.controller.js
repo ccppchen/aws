@@ -13,6 +13,9 @@ module.exports = function(app) {
 // sort: 1代表升序，-1降序 $natural是指自然排序，按照加入时间排序
 // req.query适合GET，req.body适合body
 
+router.get('/vue', function(req, res){
+  res.render('vue');
+})
 router.get('/vue/vuetb', function(req, res) {
   vue_home.find({}, null, function(err, resdata) {
     if (err) {
