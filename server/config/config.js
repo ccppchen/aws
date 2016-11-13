@@ -1,13 +1,13 @@
 var path = require('path'),
     rootPath = path.normalize(__dirname + '/../..'),
-    env = process.env.NODE_ENV || 'development';
+    env = process.env.NODE_ENV || 'production';
 var config = {
   development: {
     root: rootPath,
     app: {
       name: 'loginexpress'
     },
-    port: 80,
+    port: 3000,
     db: 'mongodb://127.0.0.1:27017/riki',
     db_name: 'riki',
     session_secret: 'riki',
@@ -34,8 +34,8 @@ var config = {
     app: {
       name: 'loginexpress'
     },
-    port: 3000,
-    db: 'mongodb://127.0.0.1:27017/riki',
+    port: 80,
+    db: 'mongodb://127.0.0.1:27017/fullstack-dev',
     db_name: 'riki',
     session_secret: 'riki',
   }
