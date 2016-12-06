@@ -8,7 +8,7 @@ var config = {
       name: 'loginexpress'
     },
     port: 3000,
-    db: 'mongodb://127.0.0.1:27017/riki',
+    db: 'mongodb://10.199.5.99:27017/riki',
     db_name: 'riki',
     session_secret: 'riki',
     options: {
