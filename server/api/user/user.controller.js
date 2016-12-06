@@ -2,9 +2,13 @@ var express = require('express'),
   router = express.Router(),
   User = require('./user.service'),
   ccap = require('../../util/ccap'),
-  code = null;
+  code = null,
+  auths = global.dbHandel.getModel('auths')
 
+var cookieParser = require('cookie-parser');
 var app = express();
+
+app.use(cookieParser('my secret here'));
 
 module.exports = function(app) {
   app.use('/', router);
@@ -49,6 +53,37 @@ router.get('/reg', function(req, res) {
     title: '注册'
   });
 });
+
+
+router.get('/auth', function(req, res) {
+  if (req.headers.token) {
+    auths.findOne({ _id: req.headers.token }, function(err, data){
+      if (data) {
+        res.json({"user": data.user, "status": 1})
+        return;
+      }else if(err) {
+        return handleError(res, req)
+      }else {
+        res.json({ "status": 0 })
+      }
+    })
+  }else {
+    res.json({ "status": 0 })
+  }
+});
+router.post('/forget', function(req, res){
+  auths.remove({ user: req.body.user }, function(err, data) {
+    if (err) {
+      return handleError(res, req)
+    }else {
+      res.json({ "msg": 'success', "status": 1 })
+    }
+  })
+});
+function newDate() {
+  var d = new Date().getTime();
+  return new Date(d + 1000*60*60);
+}
 router.post('/login', function(req, res) {
   var Uname = req.body.username;
   User.getUserOne(Uname, function(err, doc) {
@@ -60,9 +95,16 @@ router.post('/login', function(req, res) {
       res.json({"msg": "密码不正确", "status": 0});
     } else {
       req.session.user = doc.name;
-      res.json({"msg": "success", "status": 1});
+      auths.create({
+        user: doc.name,
+        expires: newDate()
+      })
+      auths.findOne({ user: doc.name }, function(err, data) {
+        res.json({"msg": "success", "status": 1, "token": data._id});
+      })
     }
   });
+
 
 });
 router.post('/reg', function(req, res) {
