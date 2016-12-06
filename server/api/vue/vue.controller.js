@@ -187,6 +187,7 @@ router.get('/getTableData', function(req, res) {
     if (err) {
       return handleError(res, req)
     };
+    console.log('11111111');
     res.status(200).json(resdata);
   });
 
