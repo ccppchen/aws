@@ -26,6 +26,7 @@ module.exports = {
   allTableDatas: {
     type: {type: String, require: true},
     version: { type: String, require: true },
+    pid: { type: String, require: true },
     date: { type: Date, require: true },
     value: { type: String, require: true },
     fd: { type: String, require: true },

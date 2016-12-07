@@ -75,6 +75,7 @@ router.post('/newPage', function(req, res) {
   allTableDatas.create({
     type: req.body.type,
     version: req.body.version,
+    pid: req.body.pid,
     date: new Date(),
     value: req.body.value,
     fd: req.body.fd,
@@ -133,6 +134,7 @@ router.post('/editPage', function(req, res) {
           }
           tank.type = req.body.type;
           tank.version = req.body.version;
+          tank.pid = req.body.pid;
           tank.date = new Date();
           tank.value = req.body.value;
           tank.fd = req.body.fd;
@@ -187,7 +189,6 @@ router.get('/getTableData', function(req, res) {
     if (err) {
       return handleError(res, req)
     };
-    console.log('11111111');
     res.status(200).json(resdata);
   });
 
