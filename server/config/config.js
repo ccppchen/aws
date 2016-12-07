@@ -37,7 +37,7 @@ var config = {
     port: 3000,
     db: 'mongodb://192.168.29.48:27017/blfed',
     db_name: 'blfed',
-    session_secret: 'blfed',
+    session_secret: 'blfed'
   }
 };
 

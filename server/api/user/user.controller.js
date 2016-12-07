@@ -98,10 +98,16 @@ router.post('/login', function(req, res) {
       auths.create({
         user: doc.name,
         expires: newDate()
-      })
-      auths.findOne({ user: doc.name }, function(err, data) {
+      }, function(err, data) {
+        // auths.findOne({ user: doc.name }, function(err, data) {
+        //   res.json({"msg": "success", "status": 1, "token": data._id});
+        // });
+        if (err) {
+          return handleError(res, req)
+        };
         res.json({"msg": "success", "status": 1, "token": data._id});
-      })
+      });
+
     }
   });
 
