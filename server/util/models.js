@@ -23,7 +23,7 @@ module.exports = {
     token: { type: String, require: false },
     expires: { type: Date, require: true, default: new Date() }
   },
-  allTableDatas: {
+  alltabledatas: {
     type: {type: String, require: true},
     version: { type: String, require: true },
     pid: { type: String, require: true },

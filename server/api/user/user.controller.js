@@ -105,6 +105,7 @@ router.post('/login', function(req, res) {
         if (err) {
           return handleError(res, req)
         };
+        console.log('登录成功');
         res.json({"msg": "success", "status": 1, "token": data._id});
       });
 
