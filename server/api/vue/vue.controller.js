@@ -5,7 +5,7 @@ var express = require('express'),
   products = global.dbHandel.getModel('products'),
   suggests = global.dbHandel.getModel('suggests'),
   restaurants = global.dbHandel.getModel('restaurants'),
-  allTableDatas = global.dbHandel.getModel('allTableDatas'),
+  allTableDatas = global.dbHandel.getModel('alltabledatas'),
   auths = global.dbHandel.getModel('auths');
 
 module.exports = function(app) {
