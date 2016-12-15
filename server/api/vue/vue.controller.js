@@ -185,7 +185,7 @@ router.post('/editPage', function(req, res) {
 // 引导页接口： 表格数据页面接口
 router.get('/getTableData', function(req, res) {
 
-  allTableDatas.find({ type: req.query.source }, null, { sort: { $natural: 1 } }, function(err, resdata) {
+  allTableDatas.find({ type: req.query.source }, null, { sort: { pid: 1 } }, function(err, resdata) {
     if (err) {
       return handleError(res, req)
     };

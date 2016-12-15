@@ -1,7 +1,7 @@
 var express = require('express'),
   router = express.Router(),
   User = require('./user.service'),
-  // ccap = require('../../util/ccap'),
+  ccap = require('../../util/ccap'),
   code = null,
   auths = global.dbHandel.getModel('auths')
 
@@ -44,10 +44,10 @@ router.get('/login', function(req, res) {
 
 });
 
-// router.get('/capt/:random', function(req, res) {
-//   var buff = code = ccap.ccap();
-//   res.end(buff[1]);
-// });
+router.get('/capt/:random', function(req, res) {
+  var buff = code = ccap.ccap();
+  res.end(buff[1]);
+});
 router.get('/reg', function(req, res) {
   res.render('reg', {
     title: '注册'
@@ -59,16 +59,15 @@ router.get('/auth', function(req, res) {
   if (req.headers.token) {
     auths.findOne({ _id: req.headers.token }, function(err, data){
       if (data) {
-        res.json({"user": data.user, "status": 1})
-        return;
+        return res.json({"user": data.user, "status": 1})
       }else if(err) {
         return handleError(res, req)
       }else {
-        res.json({ "status": 0 })
+        return res.json({ "status": 0 })
       }
     })
   }else {
-    res.json({ "status": 0 })
+    return res.json({ "status": 0 })
   }
 });
 router.post('/forget', function(req, res){
@@ -82,17 +81,17 @@ router.post('/forget', function(req, res){
 });
 function newDate() {
   var d = new Date().getTime();
-  return new Date(d + 1000*60*60);
+  return new Date(d + 1000*60*180);
 }
 router.post('/login', function(req, res) {
   var Uname = req.body.username;
   User.getUserOne(Uname, function(err, doc) {
     if (err) {
-      res.sendStatus(500);
+      return res.sendStatus(500);
     } else if (!doc) {
-      res.json({"msg": "用户名不存在", "status": 0});
+      return res.json({"msg": "用户名不存在", "status": 0});
     } else if (req.body.password !== doc.password) {
-      res.json({"msg": "密码不正确", "status": 0});
+      return res.json({"msg": "密码不正确", "status": 0});
     } else {
       req.session.user = doc.name;
       auths.create({
@@ -106,7 +105,7 @@ router.post('/login', function(req, res) {
           return handleError(res, req)
         };
         console.log('登录成功');
-        res.json({"msg": "success", "status": 1, "token": data._id});
+        return res.json({"msg": "success", "status": 1, "token": data._id});
       });
 
     }
