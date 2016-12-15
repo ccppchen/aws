@@ -1,7 +1,7 @@
 var express = require('express'),
   router = express.Router(),
   User = require('./user.service'),
-  ccap = require('../../util/ccap'),
+  // ccap = require('../../util/ccap'),
   code = null,
   auths = global.dbHandel.getModel('auths')
 
@@ -44,10 +44,10 @@ router.get('/login', function(req, res) {
 
 });
 
-router.get('/capt/:random', function(req, res) {
-  var buff = code = ccap.ccap();
-  res.end(buff[1]);
-});
+// router.get('/capt/:random', function(req, res) {
+//   var buff = code = ccap.ccap();
+//   res.end(buff[1]);
+// });
 router.get('/reg', function(req, res) {
   res.render('reg', {
     title: '注册'
